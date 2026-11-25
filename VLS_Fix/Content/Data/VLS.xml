@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VlsConfig>
+  <Enabled>true</Enabled>
+  <VLSSubtypes>
+    <Subtype>Torpedo</Subtype>
+    <Subtype>Torpedo_Heavy</Subtype>
+    <Subtype>Torpedo_Seeking</Subtype>
+    <Subtype>Torpedo_Piercing</Subtype>
+  </VLSSubtypes>
+  <HomingSubtypes>
+    <Subtype>MissileHoming</Subtype>
+  </HomingSubtypes>
+  <HomingBoostSeconds>2.5</HomingBoostSeconds>
+  <HomingTurnRateMultiplier>5</HomingTurnRateMultiplier>
+  <HomingSpeedFactor>0.5</HomingSpeedFactor>
+  <ExitSeconds>0.3</ExitSeconds>
+  <MaxTurnSeconds>6</MaxTurnSeconds>
+  <RampSeconds>0.7</RampSeconds>
+  <SmokeBurstSeconds>0.15</SmokeBurstSeconds>
+  <NoTurnAngleDeg>2</NoTurnAngleDeg>
+  <ReferenceTurnRateDeg>14</ReferenceTurnRateDeg>
+  <AgilityExponent>1.5</AgilityExponent>
+  <MaxAngularAccelDeg>80</MaxAngularAccelDeg>
+  <BrakeMargin>1</BrakeMargin>
+  <SpeedGain>20</SpeedGain>
+  <AimGain>4</AimGain>
+  <SettleAngleDeg>0.5</SettleAngleDeg>
+  <SettleRateDeg>2</SettleRateDeg>
+  <DriftAccel>30</DriftAccel>
+  <LateralAccel>20</LateralAccel>
+  <SlipSettleDeg>1</SlipSettleDeg>
+  <JetRollDeg>45</JetRollDeg>
+  <JetResponse>0.4</JetResponse>
+  <ManeuverSmokeLevel>0.3</ManeuverSmokeLevel>
+  <ManeuverSmokeAccelFactor>1</ManeuverSmokeAccelFactor>
+  <JetSmokeLevel>1</JetSmokeLevel>
+  <JetSmokeSpeed>5</JetSmokeSpeed>
+</VlsConfig>

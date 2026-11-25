@@ -1,0 +1,11 @@
+/*/obj
+/*/bin
+.idea
+*.DotSettings.user
+*.local.ini
+.claude/
+*.zip
+*.local.sh
+SpaceEngineers
+/Agents.local.md
+SE.Source

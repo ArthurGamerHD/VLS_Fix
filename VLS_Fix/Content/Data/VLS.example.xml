@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  VLS torpedo launch behaviour: per-world overrides. This file lives in the world's Storage folder
+  (Saves/<world>/Storage/<mod>_VLS_Fix.../VLS.xml) and is read once at world load, on the server only. The mod's own
+  Data/VLS.xml is applied first, then the Data/VLS.xml of any other loaded mod (in load order: their subtypes are
+  added to the lists, their values override), then every value set here overrides the lot; the server then sends
+  the result to all clients, so every machine flies the same path. Uncomment a value to change it; commented or
+  missing values keep the merged value. A subtype list set here replaces the merged list; an empty one keeps it
+  (use Enabled false to turn the mod off).
+
+  Phases: exit (straight out of the tube at launch speed) -> jet-driven turn onto the target, until settled
+  -> hand-off to the vanilla seeker, with speed ramping up to the ammo's DesiredSpeed.
+-->
+<VlsConfig>
+  <!-- <Enabled>true</Enabled> -->
+
+  <!-- Missile ammo definitions (SubtypeId) that get the launch behaviour. Must be able to seek. -->
+  <!--
+  <VLSSubtypes>
+    <Subtype>Torpedo</Subtype>
+    <Subtype>Torpedo_Heavy</Subtype>
+    <Subtype>Torpedo_Seeking</Subtype>
+    <Subtype>Torpedo_Piercing</Subtype>
+  </VLSSubtypes>
+  -->
+
+  <!--
+    Homing profile, for these missile ammos only (no tube exit, no jets). At launch the turn rate is
+    HomingTurnRateMultiplier x the ammo's MaxTurnRateDegreesPerSecond and the speed is capped at
+    HomingSpeedFactor x its DesiredSpeed, so the turn radius is far tighter; both fade linearly back to vanilla
+    over HomingBoostSeconds, then the vanilla seeker takes over.
+  -->
+  <!--
+  <HomingSubtypes>
+    <Subtype>MissileHoming</Subtype>
+  </HomingSubtypes>
+  -->
+  <!-- <HomingBoostSeconds>2.5</HomingBoostSeconds> -->
+  <!-- <HomingTurnRateMultiplier>5</HomingTurnRateMultiplier> -->
+  <!-- <HomingSpeedFactor>0.5</HomingSpeedFactor> -->
+
+  <!-- Timing (s). The turn itself ends when the nose has settled; MaxTurnSeconds is only a safety limit. -->
+  <!-- <ExitSeconds>0.3</ExitSeconds> -->
+  <!-- <MaxTurnSeconds>6</MaxTurnSeconds> -->
+  <!-- <RampSeconds>0.7</RampSeconds> -->
+  <!-- Launch smoke puff at the start of the exit phase. -->
+  <!-- <SmokeBurstSeconds>0.15</SmokeBurstSeconds> -->
+
+  <!-- Below this misalignment at turn start there is no turn at all (deg). -->
+  <!-- <NoTurnAngleDeg>2</NoTurnAngleDeg> -->
+
+  <!--
+    The jet and engine values below are for an ammo with this vanilla turn rate (the regular torpedo, 14 deg/s).
+    Every ammo is scaled by its agility = its own MaxTurnRateDegreesPerSecond / ReferenceTurnRateDeg:
+    angular acceleration by agility^AgilityExponent (AimGain by its square root), DriftAccel and LateralAccel
+    by agility.
+  -->
+  <!-- <ReferenceTurnRateDeg>14</ReferenceTurnRateDeg> -->
+  <!-- <AgilityExponent>1.5</AgilityExponent> -->
+
+  <!-- Turn: angular acceleration of the side jets at full strength (deg/s^2). -->
+  <!-- <MaxAngularAccelDeg>80</MaxAngularAccelDeg> -->
+  <!-- Braking curve: 1 aims exactly at the stopping point, above 1 overshoots more. -->
+  <!-- <BrakeMargin>1</BrakeMargin> -->
+  <!-- How hard the jets chase the braking curve (1/s). -->
+  <!-- <SpeedGain>20</SpeedGain> -->
+  <!-- Final-approach gain (1/s); caps the curve near the aim so it settles instead of chattering. -->
+  <!-- <AimGain>4</AimGain> -->
+  <!-- The nose counts as settled within this angle (deg) and below this turn rate (deg/s). -->
+  <!-- <SettleAngleDeg>0.5</SettleAngleDeg> -->
+  <!-- <SettleRateDeg>2</SettleRateDeg> -->
+
+  <!--
+    Drift: main-engine acceleration (m/s^2) that swings the velocity onto the nose; the torpedo slides on its old
+    course meanwhile. 0 locks the velocity to the nose.
+  -->
+  <!-- <DriftAccel>30</DriftAccel> -->
+  <!-- Sideways jet acceleration (m/s^2) cancelling the remaining slide once the nose has settled. 0 skips it. -->
+  <!-- <LateralAccel>20</LateralAccel> -->
+  <!-- The slide counts as cancelled once travel is within this angle of the nose (deg). -->
+  <!-- <SlipSettleDeg>1</SlipSettleDeg> -->
+
+  <!-- Visuals (clients only). -->
+  <!-- Roll of the side jets about the long axis, onto the model's diagonal ports (deg). -->
+  <!-- <JetRollDeg>45</JetRollDeg> -->
+  <!-- Per-frame smoothing of the jet strength (0..1). -->
+  <!-- <JetResponse>0.4</JetResponse> -->
+  <!--
+    Thin smoke trail during the manoeuvre: rides along with the torpedo and is blown straight back. Emission
+    relative to the vanilla trail (0 for none). Ejection speed backward = this factor x the ammo's
+    MissileAcceleration (as m/s), never more than the torpedo's speed along its nose.
+  -->
+  <!-- <ManeuverSmokeLevel>0.3</ManeuverSmokeLevel> -->
+  <!-- <ManeuverSmokeAccelFactor>1</ManeuverSmokeAccelFactor> -->
+
+  <!--
+    Exhaust plume of each side jet: rides along with the torpedo (inherits its full velocity) and is blown out
+    halfway between the jet's direction and straight back. Emission at full jet strength (1 = as authored), and
+    ejection speed relative to the torpedo (m/s; the flames leave at 5 m/s).
+  -->
+  <!-- <JetSmokeLevel>1</JetSmokeLevel> -->
+  <!-- <JetSmokeSpeed>5</JetSmokeSpeed> -->
+</VlsConfig>
